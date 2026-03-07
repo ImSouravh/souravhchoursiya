@@ -162,45 +162,6 @@
           <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
         </svg>
       );
-      const Building2 = ({ className }) => (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className={className}
-        >
-          <path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z" />
-          <path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2" />
-          <path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2" />
-          <path d="M10 6h4" />
-          <path d="M10 10h4" />
-          <path d="M10 14h4" />
-          <path d="M10 18h4" />
-        </svg>
-      );
-      const MapPin = ({ className }) => (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className={className}
-        >
-          <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
-          <circle cx="12" cy="10" r="3" />
-        </svg>
-      );
       const ExternalLink = ({ className }) => (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -219,22 +180,6 @@
           <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
         </svg>
       );
-      const Check = ({ className }) => (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className={className}
-        >
-          <polyline points="20 6 9 17 4 12" />
-        </svg>
-      );
       const UserIcon = ({ className }) => (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -249,6 +194,23 @@
           />
         </svg>
       );
+      const BookOpen = ({ className }) => (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className={className}
+        >
+          <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
+          <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
+        </svg>
+      );
 
       // --- MAIN APP COMPONENT ---
       function ResearcherProfile() {
@@ -257,7 +219,7 @@
           personal: {
             name: "Souravh Choursiya",
             titlePrefix: "Mr.",
-            photoUrl: "", // Add your photo URL here
+            photoUrl: "https://avatars.githubusercontent.com/u/68826118",
             role: "Student",
             affiliation: "University of Delhi",
             department: "Department of Commerce",
@@ -271,15 +233,16 @@
           bio: "Souravh Choursiya is an M.Com student in the Department of Commerce at the University of Delhi. His academic pursuits and research are deeply focused on uncovering actionable insights within Finance and International Business dynamics, bridging the gap between theoretical models and real-world market applications.",
           interests: ["Finance", "International Business"],
           publications: [
-            /*{
+            /*   {
               id: 1,
-              year: "2025",
-              title: "#",
+              year: "2026",
+              title: "Example",
               authors: "Choursiya, S.",
-              venue: "#",
+              venue: "",
+              status: "published",
               link: "#",
-              type: "Journal",
-            },*/
+              type: "Journal Article",
+            }, */
           ],
         };
 
@@ -297,106 +260,90 @@
           );
         };
 
-        const handleEmailClick = (e) => {
-          e.preventDefault();
-          const textArea = document.createElement("textarea");
-          textArea.value = profileData.personal.email;
-          textArea.style.position = "fixed";
-          textArea.style.left = "-9999px";
-          document.body.appendChild(textArea);
-          textArea.focus();
-          textArea.select();
-          try {
-            document.execCommand("copy");
-            setCopiedEmail(true);
-            setTimeout(() => setCopiedEmail(false), 2000);
-          } catch (err) {
-            console.error("Unable to copy", err);
-          }
-          document.body.removeChild(textArea);
-        };
-
         return (
-          <div className="w-full max-w-4xl mx-auto px-6 py-12 md:py-20 flex flex-col min-h-screen">
-            {/* --- HEADER --- */}
-            <header className="flex flex-col-reverse sm:flex-row items-start sm:items-center justify-between border-b border-slate-200 pb-8 mb-10 gap-8">
-              <div className="flex-1">
-                <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-2">
-                  {profileData.personal.titlePrefix} {profileData.personal.name}
-                </h1>
-                <p className="text-lg text-slate-600 mb-1 font-sans">
-                  {profileData.personal.role}
-                </p>
-                <p className="text-md text-slate-500 mb-6 font-sans">
-                  {profileData.personal.department},{" "}
-                  {profileData.personal.affiliation}{" "}
-                  <br className="hidden sm:block" />
-                  {profileData.personal.location}
-                </p>
+          <div className="w-full flex flex-col min-h-screen">
+            {/* --- STICKY HEADER --- */}
+            <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200">
+              <div className="max-w-4xl mx-auto px-6 py-8 flex flex-col-reverse sm:flex-row items-start sm:items-center justify-between gap-8">
+                <div className="flex-1">
+                  <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-2">
+                    {profileData.personal.titlePrefix}{" "}
+                    {profileData.personal.name}
+                  </h1>
+                  <p className="text-lg text-slate-600 mb-1 font-sans">
+                    {profileData.personal.role}
+                  </p>
+                  <p className="text-md text-slate-500 mb-6 font-sans">
+                    {profileData.personal.department},{" "}
+                    {profileData.personal.affiliation}{" "}
+                    <br className="hidden sm:block" />
+                    {profileData.personal.location}
+                  </p>
 
-                {/* Academic Links & Contact */}
-                <div className="flex flex-wrap items-center gap-4 text-sm font-sans">
-                  <a
-                    href={`mailto:${profileData.personal.email}`}
-                    className="flex items-center text-blue-600 hover:text-blue-800 transition-colors"
-                  >
-                    <Mail className="w-4 h-4 mr-1.5" />
-                    Email
-                  </a>
-                  <span className="text-slate-300">|</span>
-                  <a
-                    href={profileData.personal.googleScholar}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center text-blue-600 hover:text-blue-800 transition-colors"
-                  >
-                    Google Scholar{" "}
-                    <ExternalLink className="w-3 h-3 ml-1 opacity-70" />
-                  </a>
-                  <span className="text-slate-300">|</span>
-                  <a
-                    href={profileData.personal.researchGate}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center text-blue-600 hover:text-blue-800 transition-colors"
-                  >
-                    ResearchGate{" "}
-                    <ExternalLink className="w-3 h-3 ml-1 opacity-70" />
-                  </a>
-                  <span className="text-slate-300">|</span>
-                  <a
-                    href={profileData.personal.orcid}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center text-blue-600 hover:text-blue-800 transition-colors"
-                  >
-                    ORCID <ExternalLink className="w-3 h-3 ml-1 opacity-70" />
-                  </a>
+                  {/* Academic Links & Contact */}
+                  <div className="flex flex-wrap items-center gap-4 text-sm font-sans">
+                    <a
+                      href={`mailto:${profileData.personal.email}`}
+                      className="flex items-center text-blue-600 hover:text-blue-800 transition-colors"
+                    >
+                      <Mail className="w-4 h-4 mr-1.5" />
+                      Email
+                    </a>
+                    <span className="text-slate-300">|</span>
+                    <a
+                      href={profileData.personal.googleScholar}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center text-blue-600 hover:text-blue-800 transition-colors"
+                    >
+                      Google Scholar{" "}
+                      <ExternalLink className="w-3 h-3 ml-1 opacity-70" />
+                    </a>
+                    <span className="text-slate-300">|</span>
+                    <a
+                      href={profileData.personal.researchGate}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center text-blue-600 hover:text-blue-800 transition-colors"
+                    >
+                      ResearchGate{" "}
+                      <ExternalLink className="w-3 h-3 ml-1 opacity-70" />
+                    </a>
+                    <span className="text-slate-300">|</span>
+                    <a
+                      href={profileData.personal.orcid}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center text-blue-600 hover:text-blue-800 transition-colors"
+                    >
+                      ORCID <ExternalLink className="w-3 h-3 ml-1 opacity-70" />
+                    </a>
+                  </div>
                 </div>
+
+                {/* Avatar */}
+                {profileData.personal.photoUrl ? (
+                  <div className="shrink-0 w-24 h-24 sm:w-32 sm:h-32 rounded bg-slate-100 overflow-hidden border border-slate-200 shadow-sm">
+                    <img
+                      src={profileData.personal.photoUrl}
+                      alt={profileData.personal.name}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                ) : (
+                  <div className="shrink-0 w-24 h-24 sm:w-32 sm:h-32 rounded bg-slate-100 flex items-center justify-center border border-slate-200 relative overflow-hidden">
+                    <div className="absolute inset-0 bg-slate-200 opacity-50 animate-pulse"></div>
+                    <UserIcon className="w-12 h-12 sm:w-16 sm:h-16 text-slate-300 animate-pulse relative z-10 mt-3" />
+                  </div>
+                )}
               </div>
-
-              {/* Avatar */}
-              {profileData.personal.photoUrl ? (
-                <div className="shrink-0 w-32 h-32 rounded bg-slate-100 overflow-hidden border border-slate-200">
-                  <img
-                    src={profileData.personal.photoUrl}
-                    alt={profileData.personal.name}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-              ) : (
-                <div className="shrink-0 w-24 h-24 sm:w-32 sm:h-32 rounded bg-slate-100 flex items-center justify-center border border-slate-200 relative overflow-hidden">
-                  <div className="absolute inset-0 bg-slate-200 opacity-50 animate-pulse"></div>
-                  <UserIcon className="w-12 h-12 sm:w-16 sm:h-16 text-slate-300 animate-pulse relative z-10 mt-3" />
-                </div>
-              )}
             </header>
 
             {/* --- MAIN CONTENT --- */}
-            <main className="flex-grow flex flex-col gap-12">
+            <main className="max-w-4xl mx-auto px-6 py-12 flex-grow flex flex-col gap-12">
               {/* Biography */}
               <section>
-                <h2 className="text-xl font-bold text-slate-900 mb-4 border-b border-slate-100 pb-2">
+                <h2 className="text-xl font-bold text-slate-900 mb-4 border-b border-slate-100 pb-2 uppercase tracking-wide text-sm">
                   Biography
                 </h2>
                 <p className="text-slate-700 leading-relaxed text-justify">
@@ -406,62 +353,82 @@
 
               {/* Research Interests */}
               <section>
-                <h2 className="text-xl font-bold text-slate-900 mb-4 border-b border-slate-100 pb-2">
+                <h2 className="text-xl font-bold text-slate-900 mb-4 border-b border-slate-100 pb-2 uppercase tracking-wide text-sm">
                   Research Interests
                 </h2>
-                <ul className="list-disc list-inside text-slate-700 leading-relaxed space-y-1 ml-2">
+
+                <div className="flex flex-wrap gap-2 sm:gap-3 text-left">
                   {profileData.interests.map((interest, idx) => (
-                    <li key={idx}>{interest}</li>
+                    <span
+                      key={idx}
+                      className="px-3 py-1 bg-slate-50 text-slate-700 text-xs sm:text-sm font-sans font-semibold rounded-xl border border-slate-100 shadow-sm"
+                    >
+                      {interest}
+                    </span>
                   ))}
-                </ul>
+                </div>
               </section>
 
-              {/* Publications */}
+              {/* Academic Works Section */}
               <section>
-                <h2 className="text-xl font-bold text-slate-900 mb-6 border-b border-slate-100 pb-2">
-                  Selected Publications
+                <h2 className="text-xl font-bold text-slate-900 mb-6 border-b border-slate-100 pb-2 uppercase tracking-wide text-sm">
+                  Academic Works
                 </h2>
 
                 <div className="flex flex-col gap-6">
-                  {profileData.publications.map((pub) => (
-                    <div
-                      key={pub.id}
-                      className="flex flex-col sm:flex-row gap-2 sm:gap-6 items-start"
-                    >
-                      {/* Year Margin */}
-                      <div className="shrink-0 sm:w-16 font-sans font-semibold text-slate-500 pt-0.5">
-                        {pub.year}
-                      </div>
-
-                      {/* Citation details */}
-                      <div className="flex-1 text-slate-800 leading-relaxed">
-                        <p>
-                          {formatAuthors(pub.authors)}{" "}
+                  {profileData.publications.length > 0 ? (
+                    profileData.publications.map((pub) => (
+                      <div
+                        key={pub.id}
+                        className="flex flex-col gap-1.5 group text-left max-w-3xl"
+                      >
+                        <div className="text-slate-800 text-sm sm:text-base font-serif leading-relaxed">
+                          <span className="font-bold">{pub.authors}</span> (
+                          {pub.year}).
                           <a
                             href={pub.link}
                             target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-blue-700 hover:text-blue-900 hover:underline"
+                            className="hover:text-blue-700 transition-colors ml-1"
                           >
                             {pub.title}.
-                          </a>{" "}
-                          <em className="text-slate-600">{pub.venue}</em>.
-                        </p>
-                        <span className="inline-block mt-1 font-sans text-xs font-medium text-slate-500 bg-slate-100 px-2 py-0.5 rounded">
-                          {pub.type}
-                        </span>
+                          </a>
+                          <span className="italic ml-1">{pub.venue}.</span>
+                          {pub.status !== "published" && (
+                            <span className="ml-1 text-slate-500 italic">
+                              [{pub.status}]
+                            </span>
+                          )}
+                        </div>
+
+                        <div className="flex items-center gap-3 font-sans">
+                          <span className="text-[9px] sm:text-[10px] font-bold text-blue-500 uppercase tracking-widest bg-blue-50 px-1.5 py-0.5 rounded">
+                            {pub.type}
+                          </span>
+                        </div>
                       </div>
+                    ))
+                  ) : (
+                    <div className="flex flex-col items-center justify-center py-12 sm:py-16 bg-slate-50/50 rounded-3xl border border-slate-100 border-dashed">
+                      <BookOpen className="w-10 h-10 text-slate-400 mb-4" />
+                      <h2 className="text-slate-800 font-bold text-lg mb-1">
+                        Study in Progress
+                      </h2>
+                      <p className="text-slate-600 text-sm text-center max-w-sm px-4 font-sans leading-relaxed">
+                        Currently synthesizing actionable insights within
+                        Finance and International Business. Completed works will
+                        be listed here following APA standards.
+                      </p>
                     </div>
-                  ))}
+                  )}
                 </div>
               </section>
             </main>
 
             {/* --- FOOTER --- */}
-            <footer className="w-full mt-16 pt-8 border-t border-slate-200 text-center font-sans text-sm text-slate-500">
+            <footer className="w-full py-12 border-t border-slate-100 text-center font-sans text-[10px] font-bold uppercase tracking-[0.4em] text-slate-400">
               <p>
-                &copy; {new Date().getFullYear()} {profileData.personal.name}.
-                All rights reserved.
+                &copy; {new Date().getFullYear()}{" "}
+                {profileData.personal.name.toUpperCase()}. ACADEMIC DOSSIER.
               </p>
             </footer>
           </div>
@@ -473,5 +440,3 @@
     </script>
   </body>
 </html>
-
-
